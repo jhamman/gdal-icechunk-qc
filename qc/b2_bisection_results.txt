@@ -1,0 +1,32 @@
+  [2m2026-06-19T02:45:41.497110Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+      refs  build_s  manifest_B  status
+    500000     39.2     3295345  READ_OK  tail=[1 1 1 1]
+  [2m2026-06-19T02:46:20.767528Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+    900000     69.4     5947947  READ_OK  tail=[1 1 1 1]
+  [2m2026-06-19T02:47:30.181468Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+    990000     74.7     6549710  READ_OK  tail=[1 1 1 1]
+  [2m2026-06-19T02:48:44.916809Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+   1000000     75.2     6613686  RAISED  2/n1000000/manifests/F7J2AYFV7S6DXPGVMVCG: invalid Manifest Flatbuffer
+  [2m2026-06-19T02:50:00.184836Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+   1000050     78.7     6608425  RAISED  2/n1000050/manifests/HFBJS98X5QE624SGZWBG: invalid Manifest Flatbuffer
+  [2m2026-06-19T02:51:18.938971Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+   1050000     83.9     6947392  RAISED  2/n1050000/manifests/BT6BF20A3SB14RTVDVMG: invalid Manifest Flatbuffer
+  [2m2026-06-19T02:52:42.868922Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+   1200000     95.0     7922063  RAISED  2/n1200000/manifests/Q80Z0XHP2AQXTQDTEFMG: invalid Manifest Flatbuffer
+
+First failing ref-count: 1000000 (conjectured FlatBuffers default max_tables = 1,000,000)
+B2 BISECTION DONE

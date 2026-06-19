@@ -1,0 +1,6 @@
+### info native_inline
+    $ build-asan/apps/gdalmdiminfo ICECHUNK:fixtures/native_inline
+    -> exit 137
+
+### info hierarchy
+    $ build-asan/apps/gdalmdiminfo ICECHUNK:fixtures/hierarchy

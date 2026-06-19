@@ -1,0 +1,12 @@
+{"backend": "gdal", "target": "fixtures/bench_native", "var": "data", "open_s": 0.0049, "cold_read_s": 0.0626, "warm_read_s": 0.0504, "mb": 64.0, "warm_mbps": 1270.1}
+  [2m2026-06-19T04:11:17.599292Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+{"backend": "zarr", "target": "fixtures/bench_native", "var": "data", "open_s": 0.0119, "cold_read_s": 0.0628, "warm_read_s": 0.057, "mb": 64.0, "warm_mbps": 1123.2}
+  [2m2026-06-19T04:11:18.286534Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+{"backend": "xarray", "target": "fixtures/bench_native", "var": "data", "open_s": 0.0035, "cold_read_s": 0.0601, "warm_read_s": 0.0597, "mb": 64.0, "warm_mbps": 1072.3}
+{"backend": "gdal", "target": "dynamical-noaa-gfs/noaa-gfs-forecast/v0.2.7.icechunk", "var": "temperature_2m", "open_s": 0.2228, "cold_read_s": 0.5712, "warm_read_s": 0.0006, "mb": 6.15, "warm_mbps": 9783.3}
+{"backend": "zarr", "target": "dynamical-noaa-gfs/noaa-gfs-forecast/v0.2.7.icechunk", "var": "temperature_2m", "open_s": 0.3282, "cold_read_s": 0.2173, "warm_read_s": 0.115, "mb": 6.15, "warm_mbps": 53.5}
+{"backend": "xarray", "target": "dynamical-noaa-gfs/noaa-gfs-forecast/v0.2.7.icechunk", "var": "temperature_2m", "open_s": 0.7972, "cold_read_s": 0.1676, "warm_read_s": 0.1411, "mb": 6.15, "warm_mbps": 43.6}

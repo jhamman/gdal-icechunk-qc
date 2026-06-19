@@ -1,0 +1,57 @@
+# Build + ground-truth environment for QC of GDAL PR #14755 (Icechunk driver).
+# Create with:  micromamba create -y -n gdalic -f env/environment.yml
+# (conda works too:  conda env create -n gdalic -f env/environment.yml)
+#
+# This installs everything EXCEPT rasterio/rioxarray, which must be built from
+# source AGAINST the freshly-built GDAL (see setup.sh) -- installing them here
+# would link them to a different libgdal. The exact resolved versions used in the
+# report are pinned in env/environment.full.yml for reference.
+name: gdalic
+channels:
+  - conda-forge
+dependencies:
+  # toolchain
+  - c-compiler
+  - cxx-compiler
+  - cmake
+  - ninja
+  - pkg-config
+  - swig
+  # GDAL core + Zarr-driver codecs + /vsicurl + /vsis3
+  - proj
+  - geos
+  - libtiff
+  - libcurl
+  - libjpeg-turbo
+  - libpng
+  - openjpeg
+  - libxml2
+  - lxml
+  - expat
+  - sqlite
+  - zstd          # mandatory for the Icechunk driver
+  - lz4-c
+  - blosc
+  - c-blosc2
+  - xz
+  # python + bindings + ground-truth stack
+  - python=3.12
+  - numpy
+  - pip
+  - setuptools
+  - wheel
+  - cython
+  - icechunk      # ground-truth reader (spec v2)
+  - zarr
+  - xarray
+  - pyproj
+  - h5py
+  - h5netcdf
+  - s3fs
+  - filelock
+  - jsonschema
+  # test runners (bundled GDAL autotest)
+  - pytest
+  - pytest-env
+  - pytest-sugar
+  - pytest-benchmark

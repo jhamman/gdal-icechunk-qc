@@ -1,0 +1,35 @@
+  [2m2026-06-19T02:44:42.343381Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+  [2m2026-06-19T02:44:42.350563Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+  [2m2026-06-19T02:44:42.354403Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+  [2m2026-06-19T02:44:42.357427Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+  [2m2026-06-19T02:44:42.359821Z[0m [33m WARN[0m [1;33micechunk_arrow_object_store[0m[33m: [33mThe LocalFileSystem storage is not safe for concurrent commits. If more than one thread/process will attempt to commit at the same time, prefer using object stores.[0m
+    [2;3mat[0m icechunk-arrow-object-store/src/lib.rs:196
+
+
+== repository directory named 'repo' ==
+  [PASS] dir='repo': RAISED -> /Users/jhamman/workdir/gdal-icechunk-qc/fixtures/vc_dirname/repo: invalid Repo Flatbuffer
+  [PASS] dir='store': READ_OK -> [0 1 2 3]
+
+== file:// local virtual chunks ==
+  [PASS] file:// default (gate off): RAISED -> NK_LOCATION cICECHUNK_ALLOW_LOCAL_CHUNK_LOCATION configuration option to YES to enable it.
+  [**DEFECT**] file:// gate=YES: READ_OK -> [0 0 0 0 0 0 0 0] (truth=[np.int32(0), np.int32(1), np.int32(2), np.int32(3), np.int32(4), np.int32(5), np.int32(6), np.int32(7)])
+
+== S3 virtual chunk: missing object (clean 404) ==
+  [**DEFECT**] s3 missing object (404): READ_OK -> [0 0 0 0]
+
+==== SUMMARY ====
+  PASS   | dir='repo'
+  PASS   | dir='store'
+  PASS   | file:// default (gate off)
+  DEFECT | file:// gate=YES
+  DEFECT | s3 missing object (404)
+
+2 defect(s) of 5 checks.

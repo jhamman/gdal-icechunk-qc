@@ -1,0 +1,22 @@
+
+
+
+
+
+
+
+
+upstream S3-mock :60932  ->  toxiproxy :60935  (chunk = 256 KB)
+
+  toxic       GDAL                   reference              verdict   (note)
+  --------------------------------------------------------------------------------------
+  none        OK_CORRECT             OK_CORRECT             ok             (control (no toxic))
+  latency     OK_CORRECT             OK_CORRECT             ok             (300ms +/-50 latency)
+  bandwidth   OK_CORRECT             OK_CORRECT             ok             (throttle 512 KB/s)
+  slow_close  OK_CORRECT             OK_CORRECT             ok             (delay TCP close 500ms (SlowClose))
+  limit_data  LOUD_ERROR             OK_CORRECT             ok             (cut connection after 100 KB (LimitData))
+  reset_peer  LOUD_ERROR             LOUD_ERROR             ok             (RST the connection immediately)
+  timeout     LOUD_ERROR             LOUD_ERROR             ok             (hold 1.5s w/o data, then drop)
+  --------------------------------------------------------------------------------------
+  0 silent-data defect(s): none
+  (acceptable for a referenced chunk = OK_CORRECT or LOUD_ERROR; slow toxics may HANG vs timeout)

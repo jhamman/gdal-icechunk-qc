@@ -1,0 +1,26 @@
+
+
+
+
+
+
+
+
+
+backing source = [np.int32(1), np.int32(2), np.int32(3), np.int32(4), np.int32(5), np.int32(6), np.int32(7), np.int32(8), np.int32(9), np.int32(10), np.int32(11), np.int32(12), np.int32(13), np.int32(14), np.int32(15), np.int32(16)] (64 B, 1 chunk) via S3-mock on :60670
+
+  fault     GDAL                      reference (ic+zarr)       verdict
+  --------------------------------------------------------------------------------
+  ok        OK_CORRECT                OK_CORRECT                ok
+  http404   SILENT_FILL               LOUD_ERROR                *** DEFECT (silent) ***
+            GDAL returned: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+  http500   LOUD_ERROR                LOUD_ERROR                ok
+  http503   LOUD_ERROR                LOUD_ERROR                ok
+  http429   LOUD_ERROR                LOUD_ERROR                ok
+  truncate  LOUD_ERROR                LOUD_ERROR                ok
+  shortlen  LOUD_ERROR                LOUD_ERROR                ok
+  corrupt   SILENT_PARTIAL/CORRUPT    SILENT_PARTIAL/CORRUPT    no-checksum gap (see S1; shared)
+            GDAL returned: [-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1]
+  --------------------------------------------------------------------------------
+  1 silent-data defect(s): ['http404']
+  (acceptable for a referenced chunk = OK_CORRECT or LOUD_ERROR)
