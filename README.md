@@ -17,7 +17,7 @@ finding, and the tooling to rebuild the (unreleased) PR from source.
 **Well-engineered and correct on the cases that matter** (native + virtual chunks, v1/v2
 layouts, anonymous S3, the Zarr-delegated read path; bundled suite 74/74; **200/200**
 randomized dtype×codec×shape trials match `zarr-python` exactly). **Not ready to merge as-is**
-— three blockers, all producing *silent wrong data* or blocking flagship datasets:
+— three blockers, all producing *silent wrong data* or blocking sample datasets:
 
 | ID | Blocker | Effect |
 |----|---------|--------|
@@ -36,7 +36,7 @@ Optional: [`toxiproxy`](https://github.com/Shopify/toxiproxy) for the transport 
 same conda toolchain.
 
 ```bash
-git clone <this-repo> gdal-icechunk-qc && cd gdal-icechunk-qc
+git clone jhamman/gdal-icechunk-qc && cd gdal-icechunk-qc
 
 bash setup.sh            # create env, clone+build the PR, verify the driver, (opt) rasterio
                          #   -> takes 10-30 min (mostly the GDAL build)
