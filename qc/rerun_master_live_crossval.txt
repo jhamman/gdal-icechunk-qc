@@ -1,0 +1,24 @@
+### Live cross-validation vs icechunk+xarray — GDAL GDAL 3.14.0dev-9e12e3d07a, released 2026/06/18
+### 2026-06-20T03:48:28Z
+
+## GLAD (native, us-east-1)
+RESULT: PASS (5 variables agree)
+
+## NOAA GFS (native, us-west-2)
+ - expected_forecast_length: gshape=(7504,) xshape=(7504,) gdims=['init_time'] xdims=['init_time'] gdtype=<osgeo.gdal.ExtendedDataType; proxy of <Swig Object of type 'GDALExtendedDataTypeHS *' at 0x147ac6cf0> >  VALUE-MISMATCH maxdiff=1382398617600.0
+ - init_time: gshape=(7504,) xshape=(7504,) gdims=['init_time'] xdims=['init_time'] gdtype=<osgeo.gdal.ExtendedDataType; proxy of <Swig Object of type 'GDALExtendedDataTypeHS *' at 0x147a4b830> >  VALUE-MISMATCH maxdiff=1.700848798299151e+18
+ - lead_time: gshape=(209,) xshape=(209,) gdims=['lead_time'] xdims=['lead_time'] gdtype=<osgeo.gdal.ExtendedDataType; proxy of <Swig Object of type 'GDALExtendedDataTypeHS *' at 0x147b1b830> >  VALUE-MISMATCH maxdiff=1382398617600.0
+ - valid_time: gshape=(7504, 209) xshape=(7504, 209) gdims=['init_time', 'lead_time'] xdims=['init_time', 'lead_time'] gdtype=<osgeo.gdal.ExtendedDataType; proxy of <Swig Object of type 'GDALExtendedDataTypeHS *' at 0x147b447b0> >  VALUE-MISMATCH maxdiff=1.621241998378758e+18
+RESULT: FAIL
+  * expected_forecast_length: value mismatch maxdiff=1382398617600.0
+  * init_time: value mismatch maxdiff=1.700848798299151e+18
+  * lead_time: value mismatch maxdiff=1382398617600.0
+  * valid_time: value mismatch maxdiff=1.621241998378758e+18
+
+## RASI (virtual chunks, us-west-2) — sources drifted upstream; S1 check fires
+ - AvgSurfT_Percentiles: gshape=(780, 5, 152, 132) xshape=(780, 5, 152, 132) gdims=['time', 'percentile', 'lat', 'lon'] xdims=['time', 'percentile', 'lat', 'lon'] gdtype=<osgeo.gdal.ExtendedDataType; proxy of <Swig Object of type 'GDALExtendedDataTypeHS *' at 0x1590e3430> >  ERROR Last modified timestamp verification on /vsis3/nasa-waterinsight/RASI/LSM/HISTORICAL/PERCENTILES/AvgSurfT_percentiles_195001.nc failed: got 1772486558, expected 1766018550. If you want to ignore this check, append '?ignore-timestamp-etag=yes' to the connection string
+ - Qs_Percentiles: gshape=(780, 5, 152, 132) xshape=(780, 5, 152, 132) gdims=['time', 'percentile', 'lat', 'lon'] xdims=['time', 'percentile', 'lat', 'lon'] gdtype=<osgeo.gdal.ExtendedDataType; proxy of <Swig Object of type 'GDALExtendedDataTypeHS *' at 0x1590e2770> >  ERROR Last modified timestamp verification on /vsis3/nasa-waterinsight/RASI/LSM/HISTORICAL/PERCENTILES/Qs_percentiles_195001.nc failed: got 1772486587, expected 1766018550. If you want to ignore this check, append '?ignore-timestamp-etag=yes' to the connection string
+ - Qsb_Percentiles: gshape=(780, 5, 152, 132) xshape=(780, 5, 152, 132) gdims=['time', 'percentile', 'lat', 'lon'] xdims=['time', 'percentile', 'lat', 'lon'] gdtype=<osgeo.gdal.ExtendedDataType; proxy of <Swig Object of type 'GDALExtendedDataTypeHS *' at 0x14b5d34f0> >  ERROR Last modified timestamp verification on /vsis3/nasa-waterinsight/RASI/LSM/HISTORICAL/PERCENTILES/Qsb_percentiles_195001.nc failed: got 1772486616, expected 1766018550. If you want to ignore this check, append '?ignore-timestamp-etag=yes' to the connection string
+ - RZSM_Percentiles: gshape=(780, 5, 152, 132) xshape=(780, 5, 152, 132) gdims=['time', 'percentile', 'lat', 'lon'] xdims=['time', 'percentile', 'lat', 'lon'] gdtype=<osgeo.gdal.ExtendedDataType; proxy of <Swig Object of type 'GDALExtendedDataTypeHS *' at 0x1590f01f0> >  ERROR Last modified timestamp verification on /vsis3/nasa-waterinsight/RASI/LSM/HISTORICAL/PERCENTILES/RZSM_percentiles_195001.nc failed: got 1772486645, expected 1766018550. If you want to ignore this check, append '?ignore-timestamp-etag=yes' to the connection string
+ - SWE_Percentiles: gshape=(780, 5, 152, 132) xshape=(780, 5, 152, 132) gdims=['time', 'percentile', 'lat', 'lon'] xdims=['time', 'percentile', 'lat', 'lon'] gdtype=<osgeo.gdal.ExtendedDataType; proxy of <Swig Object of type 'GDALExtendedDataTypeHS *' at 0x1590f0030> >  ERROR Last modified timestamp verification on /vsis3/nasa-waterinsight/RASI/LSM/HISTORICAL/PERCENTILES/SWE_percentiles_195001.nc failed: got 1772486673, expected 1766018550. If you want to ignore this check, append '?ignore-timestamp-etag=yes' to the connection string
+ - SnowDepth_Percentiles: gshape=(780, 5, 152, 132) xshape=(780, 5, 152, 132) gdims=['time', 'percentile', 'lat', 'lon'] xdims=['time', 'percentile', 'lat', 'lon'] gdtype=<osgeo.gdal.ExtendedDataType; proxy of <Swig Object of type 'GDALExtendedDataTypeHS *' at 0x1590e0170> >  ERROR Last modified timestamp verification on /vsis3/nasa-waterinsight/RASI/LSM/HISTORICAL/PERCENTILES/SnowDepth_percentiles_195001.nc failed: got 1772486702, expected 1766018550. If you want to ignore this check, append '?ignore-timestamp-etag=yes' to the connection string

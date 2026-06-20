@@ -1,0 +1,71 @@
+/Users/jhamman/mamba/envs/gdalic/lib/python3.12/site-packages/pytest_benchmark/logger.py:44: PytestBenchmarkWarning: Benchmarks are automatically disabled because xdist plugin is active.Benchmarks cannot be performed reliably in a parallelized environment.
+  warner(PytestBenchmarkWarning(text))
+........................................................................ [ 90%]
+........                                                                 [100%]
+=============================== warnings summary ===============================
+gdrivers/icechunk_driver.py:26
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:26: PytestUnknownMarkWarning: Unknown pytest.mark.require_driver - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytest.mark.require_driver("Icechunk"),
+
+gdrivers/icechunk_driver.py:27
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:27: PytestUnknownMarkWarning: Unknown pytest.mark.require_driver - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytest.mark.require_driver("ZARR"),
+
+gdrivers/icechunk_driver.py:481
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:481: PytestUnknownMarkWarning: Unknown pytest.mark.require_curl - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.require_curl()
+
+gdrivers/icechunk_driver.py:482
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:482: PytestUnknownMarkWarning: Unknown pytest.mark.network - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.network
+
+gdrivers/icechunk_driver.py:530
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:530: PytestUnknownMarkWarning: Unknown pytest.mark.require_curl - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.require_curl()
+
+gdrivers/icechunk_driver.py:531
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:531: PytestUnknownMarkWarning: Unknown pytest.mark.network - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.network
+
+gdrivers/icechunk_driver.py:2204
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:2204: PytestUnknownMarkWarning: Unknown pytest.mark.require_curl - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.require_curl()
+
+gdrivers/icechunk_driver.py:2205
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:2205: PytestUnknownMarkWarning: Unknown pytest.mark.network - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.network
+
+gdrivers/icechunk_driver.py:2248
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:2248: PytestUnknownMarkWarning: Unknown pytest.mark.require_curl - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.require_curl()
+
+gdrivers/icechunk_driver.py:2249
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:2249: PytestUnknownMarkWarning: Unknown pytest.mark.network - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.network
+
+gdrivers/icechunk_driver.py:2762
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:2762: PytestUnknownMarkWarning: Unknown pytest.mark.require_curl - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.require_curl()
+
+gdrivers/icechunk_driver.py:2763
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:2763: PytestUnknownMarkWarning: Unknown pytest.mark.network - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.network
+
+gdrivers/icechunk_driver.py:2789
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:2789: PytestUnknownMarkWarning: Unknown pytest.mark.require_curl - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.require_curl()
+
+gdrivers/icechunk_driver.py:2790
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:2790: PytestUnknownMarkWarning: Unknown pytest.mark.network - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.network
+
+gdrivers/icechunk_driver.py:2838
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:2838: PytestUnknownMarkWarning: Unknown pytest.mark.require_curl - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.require_curl()
+
+gdrivers/icechunk_driver.py:2839
+  /Users/jhamman/workdir/gdal-icechunk-qc/gdal/autotest/gdrivers/icechunk_driver.py:2839: PytestUnknownMarkWarning: Unknown pytest.mark.network - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.network
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+80 passed, 16 warnings in 6.30s

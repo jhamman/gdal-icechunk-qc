@@ -1,0 +1,163 @@
+
+
+
+
+
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62596)
+
+Traceback (most recent call last):
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 442, in handle
+    self.handle_one_request()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [Errno 54] Connection reset by peer
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62610)
+Traceback (most recent call last):
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 442, in handle
+    self.handle_one_request()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [Errno 54] Connection reset by peer
+----------------------------------------
+
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62613)
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62618)
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62616)
+----------------------------------------
+Traceback (most recent call last):
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 62619)
+----------------------------------------
+Traceback (most recent call last):
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 442, in handle
+    self.handle_one_request()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 442, in handle
+    self.handle_one_request()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+ConnectionResetError: [Errno 54] Connection reset by peer
+----------------------------------------
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 442, in handle
+    self.handle_one_request()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+Traceback (most recent call last):
+ConnectionResetError: [Errno 54] Connection reset by peer
+----------------------------------------
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Exception occurred during processing of request from ('127.0.0.1', 62620)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+Traceback (most recent call last):
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 440, in handle
+    self.handle_one_request()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 428, in handle_one_request
+    method()
+  File "/Users/jhamman/workdir/gdal-icechunk-qc/scripts/fault_injection_toxiproxy.py", line 83, in do_GET
+    self.end_headers()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 542, in end_headers
+    self.flush_headers()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 546, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+BrokenPipeError: [Errno 32] Broken pipe
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 440, in handle
+    self.handle_one_request()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 428, in handle_one_request
+    method()
+----------------------------------------
+  File "/Users/jhamman/workdir/gdal-icechunk-qc/scripts/fault_injection_toxiproxy.py", line 83, in do_GET
+    self.end_headers()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 542, in end_headers
+    self.flush_headers()
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/http/server.py", line 546, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+ConnectionResetError: [Errno 54] Connection reset by peer
+  File "/Users/jhamman/mamba/envs/gdalic/lib/python3.12/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+----------------------------------------
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+
+upstream S3-mock :62532  ->  toxiproxy :62535  (chunk = 256 KB)
+
+  toxic       GDAL                   reference              verdict   (note)
+  --------------------------------------------------------------------------------------
+  none        OK_CORRECT             OK_CORRECT             ok             (control (no toxic))
+  latency     OK_CORRECT             OK_CORRECT             ok             (300ms +/-50 latency)
+  bandwidth   OK_CORRECT             OK_CORRECT             ok             (throttle 512 KB/s)
+  slow_close  OK_CORRECT             OK_CORRECT             ok             (delay TCP close 500ms (SlowClose))
+  limit_data  LOUD_ERROR             OK_CORRECT             ok             (cut connection after 100 KB (LimitData))
+  reset_peer  LOUD_ERROR             LOUD_ERROR             ok             (RST the connection immediately)
+  timeout     LOUD_ERROR             LOUD_ERROR             ok             (hold 1.5s w/o data, then drop)
+  --------------------------------------------------------------------------------------
+  0 silent-data defect(s): none
+  (acceptable for a referenced chunk = OK_CORRECT or LOUD_ERROR; slow toxics may HANG vs timeout)

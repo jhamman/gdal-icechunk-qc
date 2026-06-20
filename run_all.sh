@@ -25,6 +25,9 @@ bash scripts/run_synthetic_checks.sh || true
 banner "ROUND 2 - virtual-chunk integrity (B3)"
 "$ICPY" scripts/test_virtual_chunks.py || true
 
+banner "ROUND 2 - virtual-chunk checksum enforcement (S1)"
+"$ICPY" scripts/test_checksum_s1.py || true
+
 banner "ROUND 2 - property test (200 trials vs zarr-python)"
 "$ICPY" scripts/property_test.py --trials 200 || true
 

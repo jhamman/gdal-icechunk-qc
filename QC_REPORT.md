@@ -8,6 +8,8 @@
 
 ## 0. Summary verdict
 
+> **⟫ UPDATE 2026-06-19 — fixes merged upstream & re-verified.** After this report, Even Rouault merged **PR [#14834](https://github.com/OSGeo/gdal/pull/14834) ("icechunk_fixes")** into OSGeo/gdal `master`. We rebuilt from `master` (`9e12e3d07a`, GDAL `3.14.0dev-9e12e3d07a`) and re-ran the whole portfolio: **all three blockers (B1, B2, B3) and the checksum item (S1) are fixed**, with no regressions (bundled autotest **80/80**, up from 74; property test 200/200; concurrency clean). Notably the S1 fix is confirmed on the **live RASI** dataset — whose backing NetCDF objects have since drifted upstream — where GDAL now refuses the stale chunks exactly as `icechunk` does (opt out with `?ignore-timestamp-etag=yes`). The findings below describe the **as-reviewed `8c2b212`** state and stand as the historical record; **see §7 for the full re-QC**. Items we had **not** yet reported (Azure / v1-layout virtual-config = S2; minor polish) are confirmed **unchanged**, as expected.
+
 The driver is **well-engineered, defensively coded, and works correctly on real public Icechunk data** for the cases that matter most: native chunks (GLAD), virtual chunks (RASI), the v1 `refs/` and v2 `repo` layouts, anonymous S3, branch/tag *listing*, and a large multidimensional read path delegated to GDAL's Zarr driver. The bundled test suite passes (**74/74**), and independent cross-validation against `icechunk`+`xarray` ground truth agrees to the bit on sampled values.
 
 **Three blockers found** (all three produce *silent wrong data* or block sample datasets):
@@ -333,6 +335,105 @@ Mirroring Earthmover's own icechunk rigor (toxiproxy + object-store fault inject
 
 ---
 
+## 7. Re-QC against OSGeo/gdal `master` — `icechunk_fixes` (PR #14834) merged
+
+**Re-tested at:** OSGeo/gdal `master` @ `9e12e3d07a` (merge of PR [#14834](https://github.com/OSGeo/gdal/pull/14834), "icechunk_fixes"), `gdalinfo --version` → **GDAL 3.14.0dev-9e12e3d07a**, 2026-06-19. Build/env otherwise identical (icechunk 2.0.6 spec v2, zarr 3.2.1, xarray 2026.4.0, Python 3.12, macOS arm64). Raw logs: `qc/rerun_master_*.txt`.
+
+Five commits landed on `master` between the reviewed `8c2b212` and the re-test, mapping 1:1 onto our findings:
+
+| Commit | Title | Closes |
+|---|---|---|
+| `5b098ef642` | Icechunk: really honour `?tag=` / `?branch=` | **B1** |
+| `8dee226580` | Icechunk: remove limitation to 1 million tables in manifest flatbuffer verification | **B2** |
+| `2f3f78cb16` | Icechunk: error out when reading a missing remote virtual ref | **B3** |
+| `00021bdac9` | Icechunk: check chunk timestamp when available, add `ignore-timestamp-etag=yes` option | **S1** |
+| `11339a4456` | Icechunk: tidy up code a bit, increase test coverage | (general; autotest 74→80) |
+
+**Net result: all three blockers (B1, B2, B3) and the checksum item (S1) are fixed; no regressions.** The unreported S2 (v1-layout virtual config / Azure) and the minor-polish items are unchanged, as expected. Bundled autotest: **80 passed, 0 failed** (`qc/rerun_master_autotest.txt`).
+
+### 7.1 B1 — branch/tag data selection ✅ FIXED
+Root cause (confirmed from the diff): `DatasetOpen` stripped the `?branch=`/`?tag=` suffix *before* composing the `ZARR:"/vsiicechunk/{…}"` string, so the ref never reached chunk resolution — only `list-branches`/`list-tags` saw it. The fix passes the **full** filename (suffix intact) through, and `vsiicechunk.cpp::SplitFilename` now parses it via the shared `GetFilenameFromDatasetName`. Re-run of `scripts/run_synthetic_checks.sh` (`qc/rerun_master_synthetic_checks.txt`):
+
+| connection | GDAL read | expected | was on `8c2b212` |
+|---|---|---|---|
+| `multi_ref` (main) | `[30,31,32,33]` | `[30,31,32,33]` | `[30,31,32,33]` |
+| `…?tag=v1` | `[10,11,12,13]` | `[10,11,12,13]` | ❌ `[30,31,32,33]` |
+| `…?tag=v2` | `[20,21,22,23]` | `[20,21,22,23]` | ❌ `[30,31,32,33]` |
+| `…?branch=dev` | `[20,21,22,23]` | `[20,21,22,23]` | ❌ `[30,31,32,33]` |
+
+All four now cross-validate against `icechunk`+`xarray` (per-ref `compare.py` PASS). Time-travel by `?tag=`/`?branch=` is now safe.
+
+### 7.2 B2 — large manifests (>1,000,000 chunk refs) ✅ FIXED
+The manifest FlatBuffers `Verifier` is now constructed with `max_tables` sized from the buffer (`min(size, UINT32_MAX)`) instead of the library default of 1,000,000 (`icechunkmanifest.cpp:96`, ref. issue [#14830](https://github.com/OSGeo/gdal/issues/14830)). Re-run of `scripts/bisect_b2.py` (`qc/rerun_master_bisect_b2.txt`) — every count that previously failed now reads correctly:
+
+| chunk refs / manifest | manifest bytes | GDAL on `master` | on `8c2b212` |
+|---:|---:|---|---|
+| 500,000 | 3.3 MB | `READ_OK` | OK |
+| 900,000 | 5.9 MB | `READ_OK` | OK |
+| 990,000 | 6.5 MB | `READ_OK` | OK |
+| **1,000,000** | 6.6 MB | **`READ_OK`** | ❌ invalid Manifest Flatbuffer |
+| 1,000,050 | 6.6 MB | `READ_OK` | ❌ |
+| 1,050,000 | 6.9 MB | `READ_OK` | ❌ |
+| 1,200,000 | 7.9 MB | `READ_OK` | ❌ |
+
+> First failing ref-count: **None** (was exactly **1,000,000** on `8c2b212`).
+
+On `8c2b212` the boundary was exactly **1,000,000** (990k OK, 1,000,000 → "invalid Manifest Flatbuffer"). On `master` there is **no boundary** in the tested range — including the previously-failing 1,000,000 / 1,200,000 cases — and every read returns the true data (all-ones), not silent fill. The full extent of GLAD's `lclu` (the real-world trigger) is now readable.
+
+### 7.3 B3 — inaccessible virtual chunk no longer silently fills ✅ FIXED
+`vsiicechunk.cpp::Open` now raises `CPLError(… "Cannot open %s")` when a manifest-*referenced* virtual chunk's backing object can't be opened, instead of falling through to a missing-chunk → fill. Re-run of `scripts/test_virtual_chunks.py` (`qc/rerun_master_virtual_chunks.txt`) — **0 defects of 5 checks**:
+
+| case | GDAL on `master` | was on `8c2b212` |
+|---|---|---|
+| S3 referenced object missing (clean 404) | **`RAISED: Cannot open /vsis3/…`** | ❌ `SILENT_FILL [0,0,0,0]` |
+| local `file://` virtual chunk, gate=YES | **`RAISED: Cannot open file://…`** | ❌ `SILENT_FILL` |
+| `file://` gate off (default) | `RAISED` (access disabled) | `RAISED` |
+| repo dir named `store` (control) | `READ_OK` | `READ_OK` |
+
+Corroborated by the HTTP fault matrix (`scripts/fault_injection.py`, `qc/rerun_master_fault_injection.txt`): **HTTP 404 is now `LOUD_ERROR`** matching the reference — it was the *only* `SILENT_FILL` in the entire matrix on `8c2b212`. The remaining classes (5xx, truncate, short-length, corrupt) are unchanged: all loud except the valid-length bit-corruption case, which is the shared no-content-checksum property (returns the same wrong bytes as the `icechunk`+`zarr` oracle — not GDAL-specific).
+
+*Nuance:* `file://` is still absent from the URL→VSI morph table, so local `file://` virtual chunks now **error loudly** rather than read — the *safety* fix (no more silent fill) landed; making `file://` chunks actually readable was a secondary suggestion in the issue and remains open.
+
+### 7.4 S1 — virtual-chunk checksum (timestamp) now enforced ✅ FIXED (residual etag gap)
+`checksum_last_modified` / `checksum_etag` are now parsed unconditionally (the `#ifdef DEBUG` gate is gone, `icechunkmanifest.cpp:259`). On read, `vsiicechunk.cpp::GetFileInfo` stats the morphed backing object and compares its `st_mtime` to the recorded `checksum_last_modified`, erroring on mismatch; `?ignore-timestamp-etag=yes` opts out.
+
+**Synthetic mock** (`scripts/test_checksum_s1.py`, new; `qc/rerun_master_checksum_s1.txt`), S3-mock serving a controllable `Last-Modified`:
+
+| case | GDAL | note |
+|---|---|---|
+| recorded ts == object ts | `OK_CORRECT` | reads |
+| recorded ts != object ts | **`LOUD_ERROR`** | *"Last modified timestamp verification … failed: got 1700000000, expected 1699900000"* |
+| stale ts + `?ignore-timestamp-etag=yes` | `OK_CORRECT` | opt-out works |
+| recorded **etag** != object etag | `OK_CORRECT` (no error) | **residual gap** — etag parsed but never compared |
+
+**Live confirmation on RASI** (`qc/rerun_master_live_crossval.txt`) — the real dataset that motivated S1. Its backing NetCDF objects were re-uploaded upstream (object `Last-Modified` ≈ 2026-02-28 vs manifest's recorded ≈ 2025-12-18), so:
+- `icechunk`+`zarr` oracle: **raises** *"the checksum of the object owning the virtual chunk has changed."*
+- GDAL on `8c2b212`: silently served the (drifted) chunks.
+- GDAL on `master`: **refuses them too**, matching the oracle — *"Last modified timestamp verification on /vsis3/nasa-waterinsight/RASI/…_195001.nc failed: got 1772486558, expected 1766018550. … append '?ignore-timestamp-etag=yes' …"* Verified that `ICECHUNK:…/RASI/HISTORICAL?ignore-timestamp-etag=yes` then reads (returns RASI's `-9999` nodata at the sampled corner).
+
+*Behavioral note for users:* RASI no longer reads through GDAL **by default** — this is correct, safe behavior (the source genuinely drifted). Reading it now requires the explicit `?ignore-timestamp-etag=yes` opt-out, accepting the staleness risk.
+
+*Residual gap (worth a follow-up to Even):* only `checksum_last_modified` is enforced; `checksum_etag` is parsed but **never compared**, so a virtual store that records an etag rather than a timestamp is unprotected. Recommend extending the check to etag (and documenting which checksum icechunk records by default for a given writer).
+
+### 7.5 Regression sweep — clean
+| check | `master` result | vs `8c2b212` |
+|---|---|---|
+| Bundled autotest `icechunk_driver.py` | ✅ **80 passed** | was 74 (new coverage) |
+| Property test (200 trials, 12 dtypes × 4 codecs) | ✅ **200/200**, 0 mismatch | unchanged |
+| Concurrency (8×40 reads + `/vsiicechunk` 8×60) | ✅ 0 errors, no fd growth | unchanged |
+| Memory: per-open/per-read leak | ⚠️ ~7.7 KB/iter open+read — the **pre-existing read-path leak shared with plain Zarr**, untouched by this PR | unchanged |
+| Toxiproxy transport faults (latency/bw/limit/reset/timeout) | ✅ 0 silent-data defects | unchanged |
+| GLAD (native, us-east-1) | ✅ PASS (5 vars agree) | now incl. full extent (B2) |
+| GFS (native, us-west-2) | ✅ data vars agree; time coords differ by CF-decode artifact only | unchanged |
+
+### 7.6 Unreported items — confirmed still present (expected)
+We had not filed these (or filed them as low priority), so they are correctly **not** fixed in `master`:
+- **S2 — v1-layout virtual config / Azure.** `OpenV1` still doesn't apply `virtual_chunk_containers` region/anonymous config; `ProcessConfig` still handles only s3/gcs (no `az://`, no requester-pays).
+- **Undecodable array omitted from listing** (issue 06). An array with an unsupported codec (`numcodecs.zlib`) is still dropped from `gdal mdim info` (only an `ERROR 6` to stderr; reading it fails gracefully). Confirmed in `qc/rerun_master_synthetic_checks.txt` — unchanged.
+- **Polish.** The `cICECHUNK_ALLOW_LOCAL_CHUNK_LOCATION` typo persists (`vsiicechunk.cpp:359`); a repository directory named `repo` is still mis-resolved (`test_virtual_chunks.py` still `RAISED: invalid Repo Flatbuffer`); the `ICE🧊CHUNK` magic is still not validated.
+
+---
+
 ## Appendix — reproduce
 
 ```bash
@@ -350,6 +451,7 @@ bash  scripts/run_bench.sh                   # light perf comparison vs zarr-pyt
 
 # --- round 2 (deep QC / blind-spot closure, §6) ---
 $ICPY scripts/test_virtual_chunks.py         # B3: silent-fill on inaccessible virtual chunks (§6.2)
+$ICPY scripts/test_checksum_s1.py            # S1: virtual-chunk timestamp/etag enforcement (§7)
 $ICPY scripts/property_test.py --trials 200  # 200 randomized dtype×codec×shape vs zarr-python (§6.3)
 $ICPY scripts/bisect_b2.py                   # bisect the 1e6-ref manifest threshold (§6.1)
 $ICPY scripts/test_concurrency_leak.py       # concurrency + per-open/read leak (§6.4, §6.5)
@@ -358,7 +460,16 @@ toxiproxy-server & ; $ICPY scripts/fault_injection_toxiproxy.py  # transport fau
 bash  scripts/run_asan_checks.sh             # ASan/UBSan run (slow on this toolchain; §6.6)
 
 # bundled driver test suite:
-cd gdal/autotest && $ICPY -m pytest gdrivers/icechunk_driver.py -q   # 74 passed
+cd gdal/autotest && $ICPY -m pytest gdrivers/icechunk_driver.py -q   # 74 passed (80 on master)
+```
+
+To reproduce the **§7 re-QC against `master`** (after `icechunk_fixes`), rebuild from the merged
+commit and re-run — `setup.sh` already takes remote/branch/sha overrides:
+
+```bash
+GDAL_REMOTE=https://github.com/OSGeo/gdal.git GDAL_BRANCH=master GDAL_SHA=9e12e3d07a \
+  bash setup.sh                              # or: git -C gdal fetch && checkout, re-cmake, re-ninja
+source scripts/env.sh && bash run_all.sh     # full portfolio incl. the new S1 checksum test
 ```
 
 Repos discovered for dynamical datasets: GFS forecast `noaa-gfs-forecast/v0.2.7.icechunk`, GFS analysis `noaa-gfs-analysis/v0.1.0.icechunk` (+`vpara0.icechunk`), MRMS `noaa-mrms-conus-analysis-hourly/v0.3.0.icechunk` (all bucket-root region us-west-2, anonymous).

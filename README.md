@@ -12,20 +12,31 @@ finding, and the tooling to rebuild the (unreleased) PR from source.
 > **Reviewed at** `rouault/gdal@icechunk`, commit `8c2b212`, target GDAL 3.14.
 > Ground truth: `icechunk` 2.0.6 (spec v2) + `zarr` 3.2.1 + `xarray`.
 
+> ### ✅ Update (2026-06-19): the three blockers are fixed upstream and re-verified.
+> Even Rouault merged [**PR #14834 "icechunk_fixes"**](https://github.com/OSGeo/gdal/pull/14834)
+> into OSGeo/gdal `master`. We rebuilt from `master` (`9e12e3d07a`, GDAL `3.14.0dev-9e12e3d07a`)
+> and re-ran the whole portfolio: **B1, B2, B3 and the checksum item (S1) all pass**, no
+> regressions (bundled suite **80/80**, property test 200/200). The S1 fix is confirmed live on
+> RASI, where GDAL now refuses upstream-drifted chunks exactly as `icechunk` does. See
+> **[`QC_REPORT.md` §7](QC_REPORT.md)** for the re-QC. The table below is the **as-reviewed
+> `8c2b212`** state (historical).
+
 ## TL;DR verdict
 
 **Well-engineered and correct on the cases that matter** (native + virtual chunks, v1/v2
 layouts, anonymous S3, the Zarr-delegated read path; bundled suite 74/74; **200/200**
-randomized dtype×codec×shape trials match `zarr-python` exactly). **Not ready to merge as-is**
-— three blockers, all producing *silent wrong data* or blocking sample datasets:
+randomized dtype×codec×shape trials match `zarr-python` exactly). As first reviewed (`8c2b212`),
+**three blockers** were found, all producing *silent wrong data* or blocking sample datasets —
+**all now fixed in `master`** (see the update banner above):
 
-| ID | Blocker | Effect |
-|----|---------|--------|
-| **B1** | `?branch=`/`?tag=` dropped before delegation | non-`main` refs **silently return `main`'s data** |
-| **B2** | manifest FlatBuffers verifier uses default `max_tables` | arrays with **≥1,000,000 chunk refs/manifest** unreadable (e.g. GLAD `lclu`); bisected to exactly 1e6 |
-| **B3** | a manifest-referenced virtual chunk that 404s is treated as an absent/sparse chunk | missing object / missing credentials → **silently reads as zeros** (the reference stack *raises*) |
+| ID | Blocker | Effect | `master` |
+|----|---------|--------|----------|
+| **B1** | `?branch=`/`?tag=` dropped before delegation | non-`main` refs **silently return `main`'s data** | ✅ fixed |
+| **B2** | manifest FlatBuffers verifier uses default `max_tables` | arrays with **≥1,000,000 chunk refs/manifest** unreadable (e.g. GLAD `lclu`); bisected to exactly 1e6 | ✅ fixed |
+| **B3** | a manifest-referenced virtual chunk that 404s is treated as an absent/sparse chunk | missing object / missing credentials → **silently reads as zeros** (the reference stack *raises*) | ✅ fixed |
 
-Full detail, evidence, spec-coverage matrix, and prioritized TODOs: **[`QC_REPORT.md`](QC_REPORT.md)**.
+Full detail, evidence, spec-coverage matrix, and prioritized TODOs: **[`QC_REPORT.md`](QC_REPORT.md)**
+(re-QC against `master`: **[§7](QC_REPORT.md)**).
 Round-2 deep-QC raw notes: [`qc/phaseE_deep_qc_findings.md`](qc/phaseE_deep_qc_findings.md).
 
 ## Reproduce from scratch

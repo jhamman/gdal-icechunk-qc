@@ -1,0 +1,16 @@
+
+== concurrency: 8 threads x 40 iters, separate handles ==
+  PASS: 320 concurrent reads, 0 error(s)
+
+== /vsiicechunk concurrency: 8x60 ==
+  PASS: 0 error(s)
+
+== leak: 2000 open/read/close cycles ==
+  RSS: 55472 -> 70816 KB  (+15344 KB over 2000 iters = 7.672 KB/iter)
+  open fds: 4 -> 4
+  SUSPECT LEAK
+
+==== SUMMARY ====
+  PASS  | concurrency_read
+  PASS  | concurrency_vsi
+  FAIL  | leak

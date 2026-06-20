@@ -1,0 +1,17 @@
+
+      refs  build_s  manifest_B  status
+    500000     75.6     3295343  READ_OK  tail=[1 1 1 1]
+
+    900000    126.4     5947948  READ_OK  tail=[1 1 1 1]
+
+    990000    142.7     6549713  READ_OK  tail=[1 1 1 1]
+
+   1000000    150.3     6613687  READ_OK  tail=[1 1 1 1]
+
+   1000050    149.6     6608426  READ_OK  tail=[1 1 1 1]
+
+   1050000    148.6     6947390  READ_OK  tail=[1 1 1 1]
+
+   1200000    177.3     7922062  READ_OK  tail=[1 1 1 1]
+
+First failing ref-count: None (conjectured FlatBuffers default max_tables = 1,000,000)

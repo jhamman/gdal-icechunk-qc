@@ -1,0 +1,17 @@
+
+
+
+
+object Last-Modified = Tue, 14 Nov 2023 22:13:20 GMT (epoch 1700000000); truth=[np.int32(1), np.int32(2), np.int32(3), np.int32(4), np.int32(5), np.int32(6), np.int32(7), np.int32(8)]
+
+  case             GDAL                          oracle (ic+zarr)         note
+  --------------------------------------------------------------------------------------------
+  [PASS] ts_match         GDAL=OK_CORRECT               oracle=OK_CORRECT               recorded ts == object ts -> read
+  [PASS] ts_stale         GDAL=LOUD_ERROR               oracle=OK_CORRECT               GDAL must error; oracle not a control (see note)
+  [PASS] ts_stale+ignore  GDAL=OK_CORRECT               oracle=(n/a)                    ?ignore-timestamp-etag=yes bypasses check
+  [PASS] etag_stale       GDAL=OK_CORRECT               oracle=OK_CORRECT               RESIDUAL GAP: etag parsed but not compared
+  --------------------------------------------------------------------------------------------
+
+  0 defect(s): none
+  NOTE: only checksum_last_modified is enforced; checksum_etag is parsed but
+        not compared -> etag-only virtual stores remain unprotected.
